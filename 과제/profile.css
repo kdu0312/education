@@ -1,0 +1,37 @@
+*{
+    text-align: center;
+}
+
+html{
+    background-color: #B3A194;
+}
+
+body{
+    width: 640px;
+    margin: auto; /* 가운데 정렬을 위한 설정 */
+    background-color: #F0EDE5;
+    padding: 20px; /* 여백 추가 */
+    border-radius: 10px; /* 모서리 둥글게 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */ 
+}
+
+h1{  
+    font-size: 50px;
+    color: #4A3C2A; /* 어두운 갈색 */
+    font-family: 'Arial', sans-serif; /* 글꼴 설정 */
+    margin-bottom: 20px; /* 제목과 내용 사이의 여백 */
+}  
+
+img{
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+}
+
+p{
+    font-size: 1.5rem;
+    color: #4A3C2A; /* 어두운 갈색 */
+    font-family: 'Arial', sans-serif; /* 글꼴 설정 */
+    line-height: 1.6; /* 줄 간격 */
+    margin: 10px 0; /* 문단 간격 */ 
+}
