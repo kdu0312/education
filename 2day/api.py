@@ -45,6 +45,3 @@ class Book(MethodView):
             abort(404, message="Book not found.")
         books = [book for book in books if book["id"] != book_id]
         return ""
-
-book_blp.add_url_rule("/", view_func=BookList.as_view("book_list"))
-book_blp.add_url_rule("/<int:book_id>", view_func=Book.as_view("book"))
