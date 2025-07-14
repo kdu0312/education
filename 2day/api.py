@@ -6,6 +6,7 @@ from schemas import BookSchema
 book_blp = Blueprint("books", "books", url_prefix="/books", description="Operations on books")
 books = []
 
+@book_blp.route("/")
 class BookList(MethodView):
     @book_blp.response(200, BookSchema)
     def get(self):
