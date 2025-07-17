@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Flask Insta REST API</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        h1 { color: #333; }
+        .user-box { margin: 20px 0; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
+        .user-box h3 { margin: 0; }
+        .post { margin-left: 20px; }
+        a { text-decoration: none; color: #007bff; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>📷 Flask 인스타 REST API 프로젝트</h1>
+
+    <p><a href="{{ url_for('user_bp.register') }}">👉 회원가입 (POST /register)</a></p>
+
+    <h2>🙋 사용자 목록</h2>
+    {% for user in users %}
+        <div class="user-box">
+            <h3>{{ user.username }}</h3>
+            <div>
+                <strong>게시물:</strong>
+                {% for post in user.posts %}
+                    <div class="post">
+                        📌 {{ post.title }} - ❤️ {{ post.likes }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <p>사용자가 없습니다.</p>
+    {% endfor %}
+</body>
+</html>
