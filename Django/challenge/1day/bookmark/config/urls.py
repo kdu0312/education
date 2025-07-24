@@ -22,6 +22,7 @@ from django.shortcuts import render
 from django.urls import path
 from django.shortcuts import redirect
 
+from bookmark import views
 
 movie_list = [
     {"title": "파묘", "director": "장재현"},
@@ -117,4 +118,7 @@ urlpatterns = [
     path("movies/", movies),
     path("movie/<int:index>/", movie_detail),
     path("gugu/<int:num>/", gugu),
+
+    path("bookmark/", views.bookmark_list),
+    path("bookmark/<int:index>/", views.bookmark),
 ]
