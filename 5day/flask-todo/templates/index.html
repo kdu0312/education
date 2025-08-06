@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        h1 {
+            font-size: 2.5em;
+        }
+        h1 span:first-child {
+            color: #1E90FF;
+            font-weight: bold;
+            background-color: #e0eaff;
+        }
+        h1 span:last-child {
+            color: #4B0082;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="password"] {
+            padding: 6px;
+            margin: 4px;
+        }
+        button {
+            padding: 6px 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1><span>Todo</span><span>App</span></h1>
+
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+
+    <h2>Create Todo</h2>
+    <input type="text" id="todo-title" placeholder="Todo Title">
+    <button onclick="createTodo()">Create Todo</button>
+
+    <h2>Todo List</h2>
+    <ul id="todo-list"></ul>
+
+    <script>
+        let token = '';
+
+        async function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const res = await fetch('/login/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+
+            const data = await res.json();
+            if (res.ok) {
+                token = data.access_token;
+                alert('로그인 성공');
+                loadTodos();
+            } else {
+                alert('로그인 실패: ' + data.msg);
+            }
+        }
+
+        async function createTodo() {
+            const title = document.getElementById('todo-title').value;
+
+            const res = await fetch('/todo/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+                body: JSON.stringify({ title })
+            });
+
+            if (res.ok) {
+                alert('할 일 생성 완료');
+                loadTodos();
+            } else {
+                const data = await res.json();
+                alert('생성 실패: ' + data.msg);
+            }
+        }
+
+        async function loadTodos() {
+            const res = await fetch('/todo/', {
+                method: 'GET',
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+
+            const todos = await res.json();
+            const ul = document.getElementById('todo-list');
+            ul.innerHTML = '';
+            todos.forEach(todo => {
+                const li = document.createElement('li');
+                li.textContent = `${todo.title} (${todo.completed ? '완료' : '미완료'})`;
+                ul.appendChild(li);
+            });
+        }
+    </script>
+
+</body>
+</html>
